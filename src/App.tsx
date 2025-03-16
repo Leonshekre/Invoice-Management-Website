@@ -1,26 +1,31 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import SetupPage from './SetupPage';
+import ManagerListPage from './ManagerListPage';
+const DEBUG: boolean = true;
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+type Page = "SetupPage" | "ManagerListPage" | "ManagerDetailsPage" | "EmployeeListPage" | "EmployeeDetailsPage";
+
+type AppState = {
+  currPage: Page;
 }
 
-export default App;
+
+
+// ? Component<{}, AppState>
+export default class App extends Component<{}, AppState> {
+  constructor(props: {}) {
+    super(props);
+    this.state = {currPage: "SetupPage"};
+  }
+
+  // ? why not "render() {}"
+  render () {
+    if (this.state.currPage === "SetupPage") {
+      return <SetupPage/>
+    } else if (this.state.currPage === "ManagerListPage") {
+      return <ManagerListPage/>
+    } else {
+      return <div>What</div>
+    }
+  }
+}
